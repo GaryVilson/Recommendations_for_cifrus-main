@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рекомендации к товарам сайта Cifrus</title>
+    {% load static %}
+    <!--<link rel="icon" href="../../static/icon.jpg">-->
+    <link rel="icon" href="{% static 'logo.png'%}">
+    <link rel="stylesheet" href="{% static 'reset.css'%}">
+    <link rel="stylesheet" href="{% static 'styles.css'%}">
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <div class="container">
+                <div class="header__top">
+                    <div class="header__logo">
+                        <a href="{% url 'index' %}">
+                            <img src="{% static 'logo.png'%}">
+                        </a>
+
+                    </div>
+                    <div class="header__btn">
+                        <a href="#" class="btn green">О приложении</a>
+                    </div>
+                </div>
+                <ul class="tabs">
+                    {% for category in categories.keys %}
+                        <li data-tab-target="#{{category}}" class="tab">{{category}}</li>
+
+                    {%endfor%}
+                </ul>
+                {% for category, subcategories in categories.items %}
+                  <div class="tab-content">
+                    <div id="{{category}}" data-tab-content>
+                        <ul>
+                            {%for subcategory in subcategories%}
+                                <li>
+                                    <a href="{% url 'category' subcategory.0 %}">{{subcategory.1}}</a>
+                                </li>
+                            {%endfor%}
+                        </ul>
+                    </div>
+                  </div>
+                {%endfor%}
+               </div>
+        </header>
+
+        <main class="main">
+            {% block main %}
+            {% endblock %}
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <a class="btn green" href="https://www.cifrus.ru/">Перейти на оригинальный сайт Цифрус.ру</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src={% static 'scripts.js' %}></script>
+</body>
+</html>
